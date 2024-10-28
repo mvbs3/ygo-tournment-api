@@ -18,6 +18,7 @@ class Tournament(models.Model):
     name = models.CharField(max_length=100)
     date = models.DateField()
     modality = models.CharField(max_length=50)
+    players = models.ManyToManyField(Player, related_name='tournaments')  # ManyToManyField aqui
 
     def __str__(self):
         return self.name
