@@ -106,10 +106,27 @@ from  models  import  Player
 admin.site.register(Player)
 ```
 
-Agora, quando você acessar o painel administrativo do Django (em http://127.0.0.1:8000/admin/), é possível visualiza
+Agora, quando você acessar o painel administrativo do Django (em http://127.0.0.1:8000/admin/), é possível visualizar
+
+Também é possível cadastrar modelos personalizados para apareer apenas oa campos necessários no paineld e admnistrador. No arquivo admin.py crie uma classe antes de registrar no BD:
+
+```python
+from django.contrib import admin
+from .models import Produto
+
+class PlayerAdmin(admin.modelAdmin):
+    #list display determina quais campos ser'ao exibidos na lista
+    list_display = ('name','nickname','email','cossyId', 'contact_number')
+    #search_fields mostra quais campos da tabela sao pesquisaveis
+    seach_fields= ('name','nickname', "cossyId",'contact_number')
+
+# Register your models here.
+admin.site.register(Player, PlayerAdmin)
+
+```
 
 4. **Checar se migrations ocorreram bem**
-   Para checar se as migrations aconteceram de formae fetiva, é possível utilizar o comando
+   Para checar se as migrations aconteceram de forma efetiva, é possível utilizar o comando
 
 ```shell
 python3 manage.py showmigrations
