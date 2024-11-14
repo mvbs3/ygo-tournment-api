@@ -11,7 +11,7 @@ def criar_player(request):
             return redirect('lista_players')
     else:
         form = PlayerForm()
-    return render(request, 'criar_player.html', {'form': form})
+    return render(request, 'torneios/criar_player.html', {'form': form})
 # Create your views here.
 
 
@@ -24,4 +24,4 @@ def editar_produto(request, id):
             return redirect('lista_produtos')
     else:
         form = PlayerForm(instance=player)
-    return render(request, 'editar_player.html', {'form': form})
+    return render(request, 'torneios/editar_player.html', {'form': form})

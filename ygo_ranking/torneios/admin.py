@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Player,Tournament,Match
 
 
-class PlayerAdmin(admin.modelAdmin):
+class PlayerAdmin(admin.ModelAdmin):
     #list display determina quais campos ser'ao exibidos na lista
     list_display = ('name','nickname','email','cossyId', 'contact_number')
     #search_fields mostra quais campos da tabela sao pesquisaveis

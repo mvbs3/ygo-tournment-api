@@ -114,7 +114,7 @@ Também é possível cadastrar modelos personalizados para apareer apenas oa cam
 from django.contrib import admin
 from .models import Produto
 
-class PlayerAdmin(admin.modelAdmin):
+class PlayerAdmin(admin.ModelAdmin):
     #list display determina quais campos ser'ao exibidos na lista
     list_display = ('name','nickname','email','cossyId', 'contact_number')
     #search_fields mostra quais campos da tabela sao pesquisaveis
@@ -308,7 +308,8 @@ def criar_player(request):
             return redirect('lista_players')
     else:
         form = PlayerForm()
-    return render(request, 'criar_player.html', {'form': form})
+    return render(request, 'torneios/criar_player.html', {'form': form})
+# Create your views here.
 ```
 
 Agora seria necessário criar uma página simples html para ser chamada e utilizar esses forms, primeiramente dentor do app que será utilizado, crie um diretorio com o nome templates e dentro desse diretodrio o nome do app que será utilizado ou seja: ygo_rankin/torneios/templates/torneios
@@ -316,10 +317,33 @@ Agora seria necessário criar uma página simples html para ser chamada e utiliz
 E la é possivel criar seu formulario simples em html:
 
 ```html
-<!-- criar_produto.html -->
-<h2>Criar Novo Produto</h2>
-<form method="post">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Salvar Produto</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Criar Player</title>
+  </head>
+  <body>
+    <h1>Criar Novo Player</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Salvar</button>
+    </form>
+  </body>
+</html>
 ```
+
+Agora no seu projeto django (nesse caso dentro de ygo_ranking/ygo_ranking existe um arquivo chamado urls.py, la vc pode chamar seus formularios, assim:
+
+```python
+from django.contrib import admin
+from django.urls import path
+from torneios import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('criar_player/', views.criar_player, name='criar_player'),
+]
+```
+
+Após todas essas etapas, é possível testar seu formulario rodando o server, e acessando a url do seu server/url cadastrada, nesse caso: http://127.0.0.1:8000/criar_player/

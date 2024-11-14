@@ -1,6 +1,14 @@
-<!-- criar_player.html -->
-<h2>Criar Novo player</h2>
-<form method="post">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Salvar player</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Criar Player</title>
+  </head>
+  <body>
+    <h1>Criar Novo Player</h1>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Salvar</button>
+    </form>
+  </body>
+</html>
