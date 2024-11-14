@@ -1,0 +1,6 @@
+<!-- criar_player.html -->
+<h2>Criar Novo player</h2>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Salvar player</button>
+</form>

@@ -274,3 +274,52 @@ Para filtrar os registos que serão utilizados que serão mostrados na tela, é 
 produtos_caros = Produto.objects.filter(preco__gt=50)
 print(produtos_caros)
 ```
+
+## Criação de forms utilziando Django Forms
+
+No diretório do seu APP é necessário criar um arquivo chamado forms.py e nele exportar todos os models que você deseja criar um formulario para seu preenchimento.
+
+```python
+from django import forms
+from .models import Player, Tournament  # Substitua com o modelo correspondente
+
+class PlayerForm(forms.ModelForm):
+    class Meta:
+        model = Player
+        fields = ['name', 'nickname', 'email', 'cossyId', 'contact_number']  # Defina os campos que deseja no formulário
+
+class TournamentForm(forms.ModelForm):
+    class Meta:
+        model = Tournament
+        fields = ['name', 'date', 'modality']  # Defina os campos que deseja no formulário
+```
+
+Em seguida é possivel exibir esse formulário em uma ágina e salvar os dados submetidos, é possivel criar uma view para isso:
+
+```python
+from django.shortcuts import render, redirect
+from .forms import PlayerForm
+
+def criar_player(request):
+    if request.method == "POST":
+        form = PlayerForm(request.POST)
+        if form.is_valid():
+            form.save()  # Salva o novo produto no banco de dados
+            return redirect('lista_players')
+    else:
+        form = PlayerForm()
+    return render(request, 'criar_player.html', {'form': form})
+```
+
+Agora seria necessário criar uma página simples html para ser chamada e utilizar esses forms, primeiramente dentor do app que será utilizado, crie um diretorio com o nome templates e dentro desse diretodrio o nome do app que será utilizado ou seja: ygo_rankin/torneios/templates/torneios
+
+E la é possivel criar seu formulario simples em html:
+
+```html
+<!-- criar_produto.html -->
+<h2>Criar Novo Produto</h2>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Salvar Produto</button>
+</form>
+```
