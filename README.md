@@ -333,7 +333,7 @@ E la é possivel criar seu formulario simples em html:
 </html>
 ```
 
-Agora no seu projeto django (nesse caso dentro de ygo_ranking/ygo_ranking existe um arquivo chamado urls.py, la vc pode chamar seus formularios, assim:
+Agora no seu projeto django (nesse caso dentro de ygo_ranking/ygo_ranking existe um arquivo chamado urls.py, la vc pode chamar seus formularios, assim note que para importar a view vc utiliza o nome do seu APP (no caso o nome do meu app criado foi "torneios"):
 
 ```python
 from django.contrib import admin
