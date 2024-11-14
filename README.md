@@ -427,3 +427,9 @@ def minha_view_protegida(request):
     # Código da view
     return render(request, 'pagina_protegida.html')
 ```
+
+PROXIMOS PASSOS:
+
+1. lOGOUT
+2. LOGOUT REQUIRED
+3. CRIAR UMA INTERFACE BONITA PARA TESTES
