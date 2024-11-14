@@ -347,3 +347,83 @@ urlpatterns = [
 ```
 
 Após todas essas etapas, é possível testar seu formulario rodando o server, e acessando a url do seu server/url cadastrada, nesse caso: http://127.0.0.1:8000/criar_player/
+
+## Sistema de autenticação de usuário
+
+Primeiramente é necessário cirar as URL para autenticação no django no arquivo url.py:
+
+As view de LoginView e LogoutView são padrão do django para autenticação:
+
+```python
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('registro/', views.registro, name='registro'),
+]
+```
+
+É possível criar uma view de registroo de usuário basica pelo proprio django. no arquivo view.py podemos adicionar:
+
+```python
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+
+def registro(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Loga o usuário automaticamente após o registro
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/registro.html', {'form': form})
+
+```
+
+Seguindo a ideia anteriro, é necessário criar uma pasta dentor do diretório template com o nome "registration" e criar os HTML para pagina de Login e de registro. Assim:
+
+registration/login.html
+
+```html
+<h2>Login</h2>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Entrar</button>
+</form>
+```
+
+registration/registro.html
+
+```html
+<h2>Login</h2>
+<form method="post">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Entrar</button>
+</form>
+```
+
+É possível escolher o redirecionamento após a página de login e a pós a página de logout, é preciso acessar o arquivo de setting.py no seu projeto e adicionar as seguintes variáveis:
+
+```python
+# Redireciona para essa página após o login bem-sucedido
+LOGIN_REDIRECT_URL = 'criar_player'
+
+# Redireciona para essa página após o logout
+LOGOUT_REDIRECT_URL = 'login'
+```
+
+Por fim, também é possível selecionar páginas que requerem que o usuario esteja logado/autenticado para acessar dessa forma:
+
+No arquivo _view.py_ é possível colcoar a tag @login_required pra determinar que determinada view so pode ser acessada se o usuario estiver autenticado:
+
+```python
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def minha_view_protegida(request):
+    # Código da view
+    return render(request, 'pagina_protegida.html')
+```

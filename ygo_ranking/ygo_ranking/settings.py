@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+# Redireciona para essa página após o login bem-sucedido
+LOGIN_REDIRECT_URL = 'criar_player'
+
+# Redireciona para essa página após o logout
+LOGOUT_REDIRECT_URL = 'login'
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

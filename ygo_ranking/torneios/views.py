@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from .forms import PlayerForm
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def criar_player(request):
     if request.method == "POST":
         form = PlayerForm(request.POST)
@@ -25,3 +28,14 @@ def editar_produto(request, id):
     else:
         form = PlayerForm(instance=player)
     return render(request, 'torneios/editar_player.html', {'form': form})
+
+def registro(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Loga o usuário automaticamente após o registro
+            return redirect('criar_player')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/registro.html', {'form': form})
