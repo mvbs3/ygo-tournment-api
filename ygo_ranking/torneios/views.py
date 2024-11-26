@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from .models import Player
 
 @login_required
 def criar_player(request):
@@ -15,6 +16,25 @@ def criar_player(request):
     else:
         form = PlayerForm()
     return render(request, 'torneios/criar_player.html', {'form': form})
+# Create your views here.
+
+@login_required
+def editar_player(request, id):
+    player = get_object_or_404(Player, id=id)
+    
+    if request.method == "POST":
+        form = PlayerForm(request.POST, instance=player)
+        if form.is_valid():
+            form.save()
+            return redirect("lista_players")
+    else:
+        form = PlayerForm(instance=player)
+    return render(request, 'torneios/criar_player.html', {'form': form, "player" : player})
+
+def listar_players(request):    
+    if request.method == "GET":
+        players  = Player.objects.all()
+        return render(request, 'torneios/listar_players.html', {"players" : players})
 # Create your views here.
 
 

@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os 
+BASE_DIR = Path(__file__).resolve().parent.parent
 # Redireciona para essa página após o login bem-sucedido
 LOGIN_REDIRECT_URL = 'criar_player'
 
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'ygo_ranking.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR /'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
