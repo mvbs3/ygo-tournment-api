@@ -1,0 +1,24 @@
+# Ambiente Virtual
+venv/
+env/
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+
+# IDE/Editor
+.vscode/
+.idea/
+
+# Cache e Build
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# Node.js (se usado)
+node_modules/
+
+# Configurações Locais
+.env
+*.env.local
