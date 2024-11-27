@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Duelists(models.Model):
+class Duelist(models.Model):
     name = models.CharField(max_length=50)
     nickname = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
@@ -17,7 +17,7 @@ class Car(models.Model):
     name = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
     year = models.IntegerField()
-    owner = models.ForeignKey(Duelists, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Duelist, on_delete=models.CASCADE)
     
     def __str__(self) -> str:
         return super().__str__()
