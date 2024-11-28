@@ -13,11 +13,13 @@ class Duelist(models.Model):
     def __str__(self) -> str:
         return self.name
     
-class Car(models.Model):
-    name = models.CharField(max_length=50)
-    model = models.CharField(max_length=50)
+class Deck(models.Model):
+    deck = models.CharField(max_length=50)
+    ydkcode = models.CharField(max_length=300)
     year = models.IntegerField()
     owner = models.ForeignKey(Duelist, on_delete=models.CASCADE)
+    tournament_played = models.IntegerField(default=0)
+    tournament_won = models.IntegerField(default=0)
     
     def __str__(self) -> str:
         return super().__str__()

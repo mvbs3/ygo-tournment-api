@@ -46,12 +46,28 @@
                 </div>
             </div>
             <hr style="background-color:gray;">
-            <div class="add-carros">
-                <h3>Carros</h3>
-                <span class="btn-add-carros" onclick="add_carro()">+ Adicionar um carro</span>
+            <div class="add-deck">
+                <h3>Decks</h3>
+                <span class="btn-add-decks" onclick="add_deck()">+ Adicionar um deck</span>
   
-                <div id="form-carro">
-  
+                <div id="form-deck">
+                    {% for deck, ydkcode, year in decks%}
+                    <br>
+                    <div class="row">
+                        <div class="col-md">
+                            <input type='text' placeholder='deck' class='form-control' name='deck' value="{{deck}}">
+                        </div>
+
+                        <div class="col-md">
+                            <input type='text' placeholder='ydkcode' class='form-control' name='ydkcode' value="{{ydkcode}}">
+                        </div>
+
+                        <div class="col-md">
+                            <input type='number' placeholder='ano' class='form-control' name='year' value="{{year}}">
+                        </div>
+
+                    </div>
+            {% endfor%}
                 </div>
   
             </div>
