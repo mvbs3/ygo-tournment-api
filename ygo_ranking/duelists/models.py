@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Duelist(models.Model):
     name = models.CharField(max_length=50)
-    nickname = models.CharField(max_length=50)
+    nickname = models.CharField(max_length=50, default="No Nickname")
     email = models.CharField(max_length=50)
     cossyId = models.CharField(max_length=12)
     victories = models.IntegerField(default=0)

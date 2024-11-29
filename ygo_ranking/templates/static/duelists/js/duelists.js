@@ -28,3 +28,8 @@ function show_form(form_show){
     
 
 }
+
+function data_duelists(){
+    duelist = document.getElementById("duelist_select")
+    console.log("data_duelists")
+}
