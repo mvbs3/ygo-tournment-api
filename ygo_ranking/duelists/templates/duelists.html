@@ -9,17 +9,17 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md card-dashboard">
+        <div onclick="show_form('1')" class="col-md card-dashboard">
             <p class="text-card">Adicionar Duelistas</p>
         </div>
 
-        <div class="col-md card-dashboard">
+        <div onclick="show_form('2')" class="col-md card-dashboard">
             <p class="text-card">Atualizar Duelistas</p>
         </div>
 
     </div>
-
-    <div class="adicionar-cliente">
+    
+    <div id="add-duelist" class="add-duelist">
         <form action="{% url 'duelists' %}" method="POST">{% csrf_token %}
             <div class ="row">
                 <div class="col-md">
@@ -75,9 +75,11 @@
             <br>
             <input type="submit" value="Cadastrar" class="btn-principal">
   
-        </form>
-        
+        </form> 
     </div>
+    <div id="att_duelist" class="att_duelist">
+        <div>teste</div>
+      </div>
 </div>
 <script src ="{% static 'duelists/js/duelists.js' %}"></script>
 

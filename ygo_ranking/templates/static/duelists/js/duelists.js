@@ -8,3 +8,23 @@ function add_deck  (){
 
 
 }
+
+form_to_show = {"criar_duelista": 1, "atualizar_duelista": 2}
+function show_form(form_show){
+    add_duelist = document.getElementById("add-duelist")
+    att_duelist = document.getElementById("att_duelist")
+    console.log(form_show)
+    if (form_show == "1"){
+        att_duelist.style.display = "none"
+        add_duelist.style.display = "block"
+        
+    }else if (form_show == "2"){
+        add_duelist.style.display = "none"
+        att_duelist.style.display = "block"
+        console.log(att_duelist)
+        
+        
+    }
+    
+
+}

@@ -6,7 +6,8 @@
     margin-top: 40px;
     text-align: center;
     padding: 20px;
-
+    cursor: pointer;
+    border-radius: 20px;
 }
 
 .text-card{
@@ -21,6 +22,8 @@
     padding: 5px;
     font-weight: bold;
     cursor: pointer;
+    border-radius: 20px;
+
 
 }
 
@@ -30,4 +33,11 @@
     background-color: var(--dark-color);
     padding: 5px;
     font-size: 30px;
+    border-radius: 20px;
+
+}
+
+#att_duelist{
+    display: none;  
+
 }
