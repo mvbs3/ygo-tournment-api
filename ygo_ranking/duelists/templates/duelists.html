@@ -85,6 +85,21 @@
             <option value="{{duelist.id}}"> {{duelist.name}} - {{duelist.nickname}} -  {{duelist.cossyId}}</option>
             {% endfor %}
         </select>
+        <br>
+        <hr>
+        <div id="form-att_duelist" >Teste</div>
+        <p>Nome Completo</p>
+        <input id="nome" type="text" class="'form-control" placeholder="Nome Completo">
+        <p>Apelido</p>
+        <input id="nickname" type="text" class="form-control" placeholder="Apelido">
+        <p>E-mail</p>
+        <input id="email" type="email" class="form-control" placeholder="nome@email.com">
+        <p>CossyId</p>
+        <input id="cossyId" type="text" class="form-control" placeholder="__________">
+        <p>Número de Telefone</p>
+        <input id="contact_number" type="text" class="form-control" placeholder="(__)9____-____">
+        <br>
+        <input type="submit" value="Atualizar" class="btn-principal">
       </div>
 </div>
 <script src ="{% static 'duelists/js/duelists.js' %}"></script>

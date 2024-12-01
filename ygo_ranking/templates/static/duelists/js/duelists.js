@@ -44,6 +44,16 @@ function data_duelist(){
     }).then(function(result){
         return result.json()
     }).then(function(data){
-        console.log(data)
+        document.getElementById('form-att_duelist').style.display = "block"
+        nome = document.getElementById("nome")
+        nome.value=data.name
+        nickname = document.getElementById("nickname")
+        nickname.value=data.nickname
+        email = document.getElementById("email")
+        email.value=data.email
+        cossyId = document.getElementById("cossyId")
+        cossyId.value=data.cossyId
+        contact_number = document.getElementById("contact_number")
+        contact_number.value=data.contact_number
     })
 }
