@@ -45,7 +45,17 @@ def duelists(request: object) -> HttpResponse:
 
 def update_duelist(request):
     id_duelist = request.POST.get('id_duelist')
+    #utilizando filter no lugar de get, para nao dar erro se o id nao existir
+    #acho que isso pode ser melhorado, mas o que eu fiz foi deixo por enquanto
     duelist = Duelist.objects.filter(id=id_duelist)
+    #era possivel utiliza o id_duelist, mas é bom utilizar o duelist pois temos certeza q é um objeto encontrado    
+    decks =  Deck.objects.filter(owner=duelist[0])
     duelist_Json = json.loads(serializers.serialize("json", duelist))[0]['fields']
     print(duelist_Json)
-    return JsonResponse (duelist_Json)
+    decks_Json = json.loads(serializers.serialize("json", decks))
+    decks_Json = [{'id':deck['pk'], 'fields':deck['fields']} for deck in decks_Json]
+    print(decks_Json)
+    data = {
+        'duelist': duelist_Json,
+        'decks': decks_Json}
+    return JsonResponse (data)

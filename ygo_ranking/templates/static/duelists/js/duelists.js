@@ -45,15 +45,11 @@ function data_duelist(){
         return result.json()
     }).then(function(data){
         document.getElementById('form-att_duelist').style.display = "block"
-        nome = document.getElementById("nome")
-        nome.value=data.name
-        nickname = document.getElementById("nickname")
-        nickname.value=data.nickname
-        email = document.getElementById("email")
-        email.value=data.email
-        cossyId = document.getElementById("cossyId")
-        cossyId.value=data.cossyId
-        contact_number = document.getElementById("contact_number")
-        contact_number.value=data.contact_number
+        nome = document.getElementById("nome").value=data["duelist"]["name"]
+        nickname = document.getElementById("nickname").value=data["duelist"]["nickname"]
+        email = document.getElementById("email").value=data["duelist"]["email"]
+        cossyId = document.getElementById("cossyId").value=data["duelist"]["cossyId"]
+        contact_number = document.getElementById("contact_number").value=data["duelist"]["contact_number"]
+        console.log(data)
     })
 }
