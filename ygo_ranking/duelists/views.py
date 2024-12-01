@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import Duelist, Deck
 import re
+from django.core import serializers
+import json
 # Create your views here.
 def duelists(request: object) -> HttpResponse:
     
@@ -40,3 +42,10 @@ def duelists(request: object) -> HttpResponse:
 
         print(name, nickname, email, cossyId, contact_number)
         return HttpResponse("Dados enviados com sucesso")
+
+def update_duelist(request):
+    id_duelist = request.POST.get('id_duelist')
+    duelist = Duelist.objects.filter(id=id_duelist)
+    duelist_Json = json.loads(serializers.serialize("json", duelist))[0]['fields']
+    print(duelist_Json)
+    return JsonResponse (duelist_Json)

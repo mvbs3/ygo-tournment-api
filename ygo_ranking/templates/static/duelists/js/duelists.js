@@ -29,7 +29,21 @@ function show_form(form_show){
 
 }
 
-function data_duelists(){
+function data_duelist(){
     duelist = document.getElementById("duelist_select")
-    console.log("data_duelists")
+    csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value
+    id_duelist = duelist.value
+    data = new FormData()
+    data.append("id_duelist", id_duelist)
+    fetch("/duelists/update_duelist/",{
+        method:"POST",
+        headers: {
+            'X-CSRFToken': csrf_token,
+        },
+        body: data
+    }).then(function(result){
+        return result.json()
+    }).then(function(data){
+        console.log(data)
+    })
 }
