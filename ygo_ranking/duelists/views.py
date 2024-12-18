@@ -4,6 +4,7 @@ from .models import Duelist, Deck
 import re
 from django.core import serializers
 import json
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 def duelists(request: object) -> HttpResponse:
     
@@ -29,9 +30,9 @@ def duelists(request: object) -> HttpResponse:
         if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
             return render(request, 'duelists.html', {'name': name, 'nickname': nickname, 'cossyId': cossyId, 'contact_number': contact_number, 'decks': zip(deck, ydkcode,year), 'error': 'Email invalido'})
         if not re.match(r'^\d{2}9\d{8}$', contact_number):
-            return render(request, 'duelists.html', {'name': name, 'nickname': nickname, 'cossyId': cossyId, 'email': email, 'error': 'Telefone invalido'})
+            return render(request, 'duelists.html', {'name': name, 'nickname': nickname, 'cossyId': cossyId, 'email': email, 'decks': zip(deck, ydkcode,year), 'error': 'Telefone invalido'})
         if not re.match(r'^\d{10}$', cossyId):
-            return render(request, 'duelists.html', {'name': name, 'nickname': nickname, 'email': email, 'contact_number': contact_number, 'error': 'CossyId invalido'})
+            return render(request, 'duelists.html', {'name': name, 'nickname': nickname, 'email': email, 'decks': zip(deck, ydkcode,year),'contact_number': contact_number, 'error': 'CossyId invalido'})
         
         duelist = Duelist(name=name, nickname=nickname, email=email, cossyId=cossyId, contact_number=contact_number)
         duelist.save()
@@ -59,3 +60,16 @@ def update_duelist(request):
         'duelist': duelist_Json,
         'decks': decks_Json}
     return JsonResponse (data)
+
+@csrf_exempt
+def update_deck(request, id):
+    deck = Deck.objects.get(id=id)
+    deck.deck = request.POST.get('deck')
+    deck.ydkcode = request.POST.get('ydkcode')
+
+    deck.year = request.POST.get('year')
+    list_decks = Deck.objects.exclude(id=id).filter(ydkcode=deck.ydkcode)
+    if list_decks.exists():
+        return HttpResponse("Ja existe um deck com esse ydkcode")
+    deck.save()
+    return HttpResponse("Deck atualizado com sucesso")

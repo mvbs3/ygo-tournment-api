@@ -50,6 +50,32 @@ function data_duelist(){
         email = document.getElementById("email").value=data["duelist"]["email"]
         cossyId = document.getElementById("cossyId").value=data["duelist"]["cossyId"]
         contact_number = document.getElementById("contact_number").value=data["duelist"]["contact_number"]
-        console.log(data)
+        //console.log(data)
+
+        div_decks = document.getElementById('decks')
+        //console.log(data['decks'].length)
+        div_decks.innerHTML = ""
+        for(i=0;i<data['decks'].length; i++){
+            console.log(data['decks'][i]['fields']['deck'])
+            div_decks.innerHTML += "\<form action='/duelists/update_deck/" + data['decks'][i]['id'] +"' method='POST'>\
+                <div class='row'>\
+                        <div class='col-md'>\
+                            <input class='form-control' name='deck' type='text' value='" + data['decks'][i]['fields']['deck'] + "'>\
+                        </div>\
+                        <div class='col-md'>\
+                            <input class='form-control' name='ydkcode' type='text' value='" + data['decks'][i]['fields']['ydkcode'] + "'>\
+                        </div>\
+                        <div class='col-md'>\
+                            <input class='form-control' type='text' name='year' value='" + data['decks'][i]['fields']['year'] + "' >\
+                        </div>\
+                        <div class='col-md'>\
+                            <input class='btn btn-lg btn-success' type='submit' value='ATUALIZAR'>\
+                        </div>\
+                    </form>\
+                    <div class='col-md'>\
+                        <a href='/duelists/delete_deck/"+ data['decks'][i]['id'] +"' class='btn btn-lg btn-danger'>EXCLUIR DECK</a>\
+                    </div>\
+                </div><br>"
+        }
     })
 }
