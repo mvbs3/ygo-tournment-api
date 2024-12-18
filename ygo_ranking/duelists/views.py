@@ -5,6 +5,8 @@ import re
 from django.core import serializers
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.urls import reverse
+from django.shortcuts import redirect
 # Create your views here.
 def duelists(request: object) -> HttpResponse:
     
@@ -73,3 +75,11 @@ def update_deck(request, id):
         return HttpResponse("Ja existe um deck com esse ydkcode")
     deck.save()
     return HttpResponse("Deck atualizado com sucesso")
+
+def delete_deck(request, id):
+    try:
+        deck = Deck.objects.get(id=id)
+        deck.delete()
+        return redirect(reverse('duelists')+f'?aba=att_duelist&id_duelist={deck.owner.id}')
+    except:
+        return redirect(reverse('duelists')+f'?aba=att_duelist&id_duelist={deck.owner.id}')
