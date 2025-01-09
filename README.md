@@ -433,3 +433,15 @@ PROXIMOS PASSOS:
 1. lOGOUT
 2. LOGOUT REQUIRED
 3. CRIAR UMA INTERFACE BONITA PARA TESTES
+
+
+Ordem para criar um app:
+- Criar app - python3 manage.py startapp
+- Colocar como app no settings.py do projeto
+- Criar o url do app no urls.app do projeto e criar urls.py do app e preencher
+- Criar view
+- criar pasta de templates e criar o html pra ser renderizado
+- Criar os models do serviço
+- python3 manage.py makemigrations e dps ____ migrate
+- criar os modelos no admin.py do app e criar um superuser
+- acessar o /admin
