@@ -9,6 +9,7 @@ class Duelist(models.Model):
     victories = models.IntegerField(default=0)
     defeates = models.IntegerField(default=0)
     contact_number = models.CharField(max_length=15)
+    points = models.IntegerField(default=0)
     
     def __str__(self) -> str:
         return self.name
