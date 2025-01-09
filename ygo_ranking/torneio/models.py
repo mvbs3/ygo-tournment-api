@@ -1,6 +1,9 @@
 from django.db import models
 from .choices import ChoicesCategoriaTorneio
 from duelists.models import Duelist
+from datetime import datetime
+from secrets import token_hex
+import math
 # Create your models here.
 class CategoriaTorneio(models.Model):
     titulo = models.CharField(max_length=3, choices=ChoicesCategoriaTorneio.choices)
@@ -16,10 +19,31 @@ class Torneio(models.Model):
     data_inicio = models.DateField(null=True)
     data_fim = models.DateField(null=True)
     finalizado = models.BooleanField(default=False)
-    protocole = models.CharField(max_length=100, null=True, blank=True)
+    protocolo = models.CharField(max_length=34, null=True, blank=True)
+    num_rodadas = models.IntegerField(default=1)
+    winner = models.ForeignKey(Duelist, on_delete=models.CASCADE, related_name='torneios_ganhos', null=True, blank=True)
 
     def __str__(self):
         return self.name
+    def save(self, *args, **kwargs):
+        if not self.protocolo:
+            self.protocolo = datetime.now().strftime("%d/%m/%Y-%H:%M:%-S") + token_hex(12)
+        super().save(*args, **kwargs)
+    def atualizar_ranking(self):
+        matches = self.match_set.all()
+        for match in matches:
+            winner = match.winner
+            if winner:
+                winner.victories += 1
+                winner.pontos += 1
+                winner.save()
+    def definir_numRodadas(self):
+        duelists = self.duelists.all()
+        num_duelists = duelists.count()
+        num_rodadas = math.ceil(math.log2(num_duelists))
+        self.num_rodadas = num_rodadas
+        self.save()
+        return num_rodadas
     
 class Match(models.Model):
     tournament = models.ForeignKey(Torneio, on_delete=models.CASCADE)  # Relaciona com o torneio
