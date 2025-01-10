@@ -11,7 +11,11 @@
 <br>
 
 <div class="container">
-    {{form.as_p}}
+    <form action="{% url 'novo_torneio' %}" method="POST">{% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Cadastrar" class="btn btn-success">
+    </form>
+    
 </div>
 
 {% endblock %}

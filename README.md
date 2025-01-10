@@ -445,3 +445,7 @@ Ordem para criar um app:
 - python3 manage.py makemigrations e dps ____ migrate
 - criar os modelos no admin.py do app e criar um superuser
 - acessar o /admin
+- Para editar o HTML do fomulario podmeos fazer por HTML e CSS puro ou simplesmente utilizar o Model forms do django
+(Nesse projeto, o APP duelist foi feito com HTML e CSS puro e o APP torneio foi feito com Model Forms)
+- Para versão do model Forms é necessário criar um arquivo chamado "forms.py"
+- 
