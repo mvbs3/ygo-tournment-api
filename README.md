@@ -20,11 +20,15 @@ source nome_da_env/bin/activate
 Para instalar django dentro da virtualEnv:
 
 ````bash
-
-```bash
 pip install django
 #ou
 sudo apt install python3-django
+````
+
+Também é necessário instalar lib fpdf
+
+````bash
+pip install fpdf
 ````
 
 2. **Criação do Projeto Django**
