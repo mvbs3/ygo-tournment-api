@@ -1,7 +1,9 @@
 from django.shortcuts import render,get_object_or_404
 from .forms import FormTorneio
-from django.http import HttpResponse   
+from django.http import HttpResponse, FileResponse 
 from .models import Torneio 
+from fpdf import FPDF
+from io import BytesIO
 # Create your views here.
 def novo_torneio(request):
     if request.method == "GET":
@@ -21,3 +23,24 @@ def listar_torneio(request):
 def acessar_torneio(request,identificador):
     torneio = get_object_or_404(Torneio, identificador=identificador)
     return render(request, 'acessar_torneio.html', {"torneio" : torneio})
+
+def gerar_os(request,identificador):
+    torneio = get_object_or_404(Torneio, identificador=identificador)
+    pdf =  FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=16)
+    pdf.set_fill_color(240, 240, 240)
+    pdf.cell(200, 10, txt=f'- {torneio.name} -',ln=1, align='C', fill=True)
+    pdf.cell(200, 10, txt=f'~{torneio.loja}~',ln=1, align='C', fill=True)
+    
+    pdf.cell(200, 10, txt=f'- Data para inscrição -> {torneio.data_inicio} - {torneio.data_fim}',ln=1, align='C', fill=True)
+    pdf.cell(200, 10, txt=f'Duelistas Inscritos ({torneio.duelists.count()})', ln=1, align='C', fill=True)
+    pdf.cell(200, 10, txt='-', ln=1, align='C')
+    for duelist in torneio.duelists.all():
+        pdf.cell(200, 10, txt=f'- {duelist.nickname} - {duelist.cossyId}', ln=1, align='C', fill=True)
+    pdf.cell(200, 10, txt='-', ln=1, align='C')
+    pdf_content = pdf.output(dest='S').encode('latin-1')
+    pdf_bytes = BytesIO(pdf_content)
+    #pdf.output(identificador+".pdf")
+    #para fazer download direto usar parametro as_attachment=True
+    return FileResponse(pdf_bytes, as_attachment=True,filename=f'{identificador}.pdf')
