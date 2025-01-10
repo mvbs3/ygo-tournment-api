@@ -1,1 +1,17 @@
-<h1>Estou na pagina de criar um novo torneio!</h1>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'duelists/css/duelists.css' %}">
+{% endblock %}
+
+{% block 'dashboard' %}
+
+<br>
+<br>
+
+<div class="container">
+    {{form.as_p}}
+</div>
+
+{% endblock %}

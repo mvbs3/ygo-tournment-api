@@ -44,7 +44,7 @@ class Torneio(models.Model):
         self.num_rodadas = num_rodadas
         self.save()
         return num_rodadas
-    
+
 class Match(models.Model):
     tournament = models.ForeignKey(Torneio, on_delete=models.CASCADE)  # Relaciona com o torneio
     player1 = models.ForeignKey(Duelist, on_delete=models.CASCADE, related_name='player1_matches')  # Jogador 1
