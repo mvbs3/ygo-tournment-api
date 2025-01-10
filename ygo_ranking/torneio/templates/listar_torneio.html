@@ -24,7 +24,7 @@
             <tbody>
                 {% for torneio in torneios %}
                 <tr>
-                    <th><a href="{% url 'torneio' torneio.identificador%}">{{torneio.identificador}}</a></th>
+                    <th><a href="{% url 'acessar_torneio' torneio.identificador%}">{{torneio.identificador}}</a></th>
                     <td>{{torneio.name}}</td>
                     <td>{{torneio.loja}}</td>
                     <td>

@@ -18,6 +18,6 @@ def listar_torneio(request):
     if request.method == "GET":
         torneios = Torneio.objects.all()
         return render(request, 'listar_torneio.html', {"torneios" : torneios})
-def torneio(request,identificador):
+def acessar_torneio(request,identificador):
     torneio = get_object_or_404(Torneio, identificador=identificador)
-    return render(request, 'torneio.html', {"torneio" : torneio})
+    return render(request, 'acessar_torneio.html', {"torneio" : torneio})
