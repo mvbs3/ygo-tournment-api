@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'duelists/css/duelists.css' %}">
+    <link rel="stylesheet" href="{% static 'torneio/css/listar_torneio.css' %}">
+{% endblock %}
+
+{% block 'dashboard' %}
+
+<br>
+<br>
+<div class = "container">
+    {{torneio.name}}
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@ from django.db import models
 from .choices import ChoicesCategoriaTorneio
 from duelists.models import Duelist
 from datetime import datetime
-from secrets import token_hex
+from secrets import token_hex, token_urlsafe
 import math
 # Create your models here.
 class CategoriaTorneio(models.Model):
@@ -14,12 +14,13 @@ class Torneio(models.Model):
     name = models.CharField(max_length=100)
     loja = models.CharField(max_length=100)
     categoria = models.ForeignKey(CategoriaTorneio, on_delete=models.CASCADE)
-    duelists = models.ManyToManyField(Duelist)
+    duelists = models.ManyToManyField(Duelist, null=True, blank=True)
 
     data_inicio = models.DateField(null=True)
     data_fim = models.DateField(null=True)
     finalizado = models.BooleanField(default=False)
-    protocolo = models.CharField(max_length=34, null=True, blank=True)
+    protocolo = models.CharField(max_length=44, null=True, blank=True)
+    identificador = models.CharField(max_length=24, null=True, blank=True)
     num_rodadas = models.IntegerField(default=1)
     winner = models.ForeignKey(Duelist, on_delete=models.CASCADE, related_name='torneios_ganhos', null=True, blank=True)
 
@@ -27,7 +28,9 @@ class Torneio(models.Model):
         return self.name
     def save(self, *args, **kwargs):
         if not self.protocolo:
-            self.protocolo = datetime.now().strftime("%d/%m/%Y-%H:%M:%-S") + token_hex(12)
+            self.protocolo = datetime.now().strftime("%d/%m/%Y-%H:%M:%-S-") + token_hex(12)
+        if not self.identificador:
+            self.identificador = token_urlsafe(16)
         super().save(*args, **kwargs)
     def atualizar_ranking(self):
         matches = self.match_set.all()
@@ -37,9 +40,11 @@ class Torneio(models.Model):
                 winner.victories += 1
                 winner.pontos += 1
                 winner.save()
-    def definir_numRodadas(self):
+    def definir_num_rodadas(self):
         duelists = self.duelists.all()
         num_duelists = duelists.count()
+        if num_duelists < 2:
+            return 0
         num_rodadas = math.ceil(math.log2(num_duelists))
         self.num_rodadas = num_rodadas
         self.save()

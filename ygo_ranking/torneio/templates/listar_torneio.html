@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'duelists/css/duelists.css' %}">
+    <link rel="stylesheet" href="{% static 'torneio/css/listar_torneio.css' %}">
+{% endblock %}
+
+{% block 'dashboard' %}
+<br>
+<br>
+<div class="container-fluid distanciamento">
+    <div>
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Identificador</th>  
+                <th scope="col">Nome</th>
+                <th scope="col">Loja</th>
+                <th scope="col">Status</th>
+                <th scope="col">Numero de Rodadas Atual</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for torneio in torneios %}
+                <tr>
+                    <th><a href="{% url 'torneio' torneio.identificador%}">{{torneio.identificador}}</a></th>
+                    <td>{{torneio.name}}</td>
+                    <td>{{torneio.loja}}</td>
+                    <td>
+                        {% if torneio.finalizado %}
+                        <span class="badge badge-danger">Danger</span>
+                        {%else%}
+                        <span class="badge badge-success">Inscrição Aberta</span>
+                        {%endif%}                        </td>
+                    <td> {{torneio.definir_num_rodadas}}</td>
+                    
+                  </tr>
+                  
+                {% endfor %}
+              
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock %}

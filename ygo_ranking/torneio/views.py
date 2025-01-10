@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from .forms import FormTorneio
-from django.http import HttpResponse    
+from django.http import HttpResponse   
+from .models import Torneio 
 # Create your views here.
 def novo_torneio(request):
     if request.method == "GET":
@@ -15,6 +16,8 @@ def novo_torneio(request):
             return render(request, 'novo_torneio.html', {'form':meu_form})
 def listar_torneio(request):
     if request.method == "GET":
-        return render(request, 'listar_torneios.html')
-    elif request.method == "POST":
-        pass
+        torneios = Torneio.objects.all()
+        return render(request, 'listar_torneio.html', {"torneios" : torneios})
+def torneio(request,identificador):
+    torneio = get_object_or_404(Torneio, identificador=identificador)
+    return render(request, 'torneio.html', {"torneio" : torneio})
