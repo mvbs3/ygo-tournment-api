@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'duelists/css/duelists.css' %}">
+    <link rel="stylesheet" href="{% static 'torneio/css/listar_torneio.css' %}">
+{% endblock %}
+
+{% block 'dashboard' %}
+<div class= "container"> 
+    <br>
+    <hr style="background-color:gray;">
+    <h1 align="center"> Novo Usuário <h1>
+        <hr style="background-color:gray;">
+    <form class: 'form-control', action = "{% url 'cadastro' %}", method = "POST">
+        {% csrf_token %}
+        <div class="col-md">
+            <p>Username:</p>
+            <input type="text" class="form-control" placeholder="Usuario" name="name" value="{{ usuario }}">
+        </div>
+        <div class="col-md">
+            <p>Email:</p>
+            <input type="text" class="form-control" placeholder="Email" name="email" value="{{ email }}">
+        </div>
+        <div class="col-md">
+            <p>Senha:</p>
+            <input type="password" class="form-control" placeholder="Senha" name="senha" value="{{ senha }}">
+        </div>
+        <br>
+        <input type="submit" value="Cadastrar" class="btn-principal">
+
+    </form>
+</div>
+    
+
+{% endblock %}

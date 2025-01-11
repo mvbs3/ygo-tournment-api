@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('duelists/', include('duelists.urls')),
     path('torneio/', include('torneio.urls')),
+    path('usuarios/', include('usuarios.urls')),
     #path('criar_player/', views.criar_player, name='criar_player'),
     #path('players/<int:id>/editar/', views.editar_player, name='editar_player'),
     #path('players', views.listar_players, name='listar_players'),

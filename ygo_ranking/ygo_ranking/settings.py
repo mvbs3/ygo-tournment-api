@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     #My Apps
     'duelists',
     'torneio',
+    'usuarios',
 ]
 
 MIDDLEWARE = [
