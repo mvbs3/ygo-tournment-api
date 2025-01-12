@@ -30,6 +30,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Loja</th>
                 <th scope="col">Status</th>
+                <th scope="col">Numero de Players</th>
                 <th scope="col">Numero de Rodadas Atual</th>
               </tr>
             </thead>
@@ -45,7 +46,8 @@
                         {%else%}
                         <span class="badge badge-success">Inscrição Aberta</span>
                         {%endif%}                        </td>
-                    <td> {{torneio.definir_num_rodadas}}</td>
+                        <td> {{torneio.duelists.all.count}}</td>
+                        <td> {{torneio.definir_num_rodadas}}</td>
                     
                   </tr>
                   
