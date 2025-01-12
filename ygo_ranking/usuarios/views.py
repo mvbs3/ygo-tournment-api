@@ -4,7 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_django
 from django.contrib import messages
-from duelists.models import Duelist
+from duelists.models import Duelist, Deck
+import json
+from django.core import serializers
+
 # Create your views here.
 def cadastro(request):
     if request.method == "GET":
@@ -57,9 +60,14 @@ def meu_perfil(request):
         user = request.user
         email = user.email
         duelist = Duelist.objects.filter(email=email)
+        decks =  Deck.objects.filter(owner=duelist[0])
+        decks_Json = json.loads(serializers.serialize("json", decks))
+        decks_Json = [{'id':deck['pk'], 'fields':deck['fields']} for deck in decks_Json]
+  
+
         if duelist.exists():
             duelist = duelist.first()
-            return render(request, 'meu_perfil.html', {'duelist': duelist})
+            return render(request, 'meu_perfil.html', {'duelist': duelist, 'decks': decks_Json,})
         else:
             return render(request, 'meu_perfil.html' , {'duelist': None})
         

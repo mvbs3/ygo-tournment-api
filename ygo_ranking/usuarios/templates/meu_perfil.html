@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block 'dashboard' %}
+
 <div class="container">
     <div class="row">
 
@@ -21,7 +22,7 @@
     
     <hr>
     {% if not duelist == None %}
-    <div id="add-duelist" style= "border-width:5px" class="add-duelist border  rounded  p-4">
+    <div id="show-duelist" style= "border-width:5px" class="show-duelist border  rounded  p-4">
         <h2> Informações de Duelista</h2>
         <hr>
         <div class="row">
@@ -72,18 +73,51 @@
                 
             </div>
             <br>
-            <div id="add-duelist" style= "border-width:5px" class="add-duelist border  rounded  p-4">
+            <div id="show-deck" style= "border-width:5px" class="show-duelist border  rounded  p-4">
                 <h2> Meus Decks</h2>
                 <hr>
                 <div class="row">
-                    <div class="col-4 border" style="border-width: 5px;">
-                      <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Nome do Usuário</p>
+                    <div class="col-3 border" style="border-width: 5px;">
+                      <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Deck</p>
                     </div>
-                    <div class="col-8 border" style="border-width: 5px;">
-                      <p style="text-align: center; vertical-align: middle;">{{ duelist.name }}</p>
-                    </div>
+                    <div class="col-3 border" style="border-width: 5px;">
+                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Torneios Jogados</p>
+                      </div>
+                      <div class="col-3 border" style="border-width: 5px;">
+                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Torneios Vencidos</p>
+                      </div>
+
+                      <div class="col-3 border" style="border-width: 5px;">
+                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">YDKE code</p>
+                      </div>
+                      
+                   
                   </div>
-                  <br>  
+                {% for deck in decks%}
+                <div class="row">
+                    <div class="col-3 border" style="border-width: 5px;">
+                      <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.deck}}</p>
+                    </div>
+                    <div class="col-3 border" style="border-width: 5px;">
+                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.tournament_played}}</p>
+                      </div>
+                      <div class="col-3 border" style="border-width: 5px;">
+                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.tournament_won  }}</p>
+                      </div>
+
+                      <div class="col-3 border" style="border-width: 5px;">
+                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">
+                            <a href="#" onclick="copyToClipboard(event, '{{deck.fields.ydkcode}}'), alert('Texto copiado para o clipboard!')">
+                                <i class='bx bxs-copy-alt'></i>
+                                <span class="links_name">Copiar para o Clipboard</span>
+                              </a>
+                        </p>
+                      </div>
+                      
+                  </div>
+                    
+                {% endfor%}
+                
                         
                     </div>
             {%endif%}
@@ -112,10 +146,13 @@
         <hr style="background-color: gray;">
         
         <h3>Decks</h3>
-        <div id = "decks"></div>
+        <div id = "decks">
+            
+        </div>
     </div>
       </div>
 </div>
-<script src ="{% static 'duelists/js/duelists.js' %}"></script>
+<script src ="{% static 'usuarios/js/usuarios.js' %}">
+</script>
 
 {% endblock %}
