@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_django
 from django.contrib import messages
+from duelists.models import Duelist
 # Create your views here.
 def cadastro(request):
     if request.method == "GET":
@@ -50,3 +51,15 @@ def logout_view(request):
         return redirect('landing_page')
     else:
         return redirect('landing_page')
+
+def meu_perfil(request):
+    if request.user.is_authenticated:
+        user = request.user
+        email = user.email
+        duelist = Duelist.objects.filter(email=email)
+        if duelist.exists():
+            duelist = duelist.first()
+            return render(request, 'meu_perfil.html', {'duelist': duelist})
+        else:
+            return render(request, 'meu_perfil.html' , {'duelist': None})
+        
