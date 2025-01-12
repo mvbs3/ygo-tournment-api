@@ -7,10 +7,17 @@
 
 {% block 'dashboard' %}
 
-<br>
-<br>
-
 <div class="container">
+    <div class="row">
+
+        <a href="{% url 'listar_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
+            <p class="text-card">Listar Torneios</p>
+        </a>
+
+        <a href="{% url 'novo_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
+            <p class="text-card">Cadastrar Novo Torneio</p>
+        </a>
+    </div>
     <form action="{% url 'novo_torneio' %}" method="POST">{% csrf_token %}
         {{form.as_p}}
         <input type="submit" value="Cadastrar" class="btn btn-success">

@@ -30,7 +30,7 @@ def login(request):
             if user:
                 login_django(request, user)
                 #funcao q so funciona quando usuarios esta autenticado: request.user.is_authenticated
-                messages.success(request, 'Logado com sucesso')()
+                #messages.success(request, 'Logado com sucesso')()
 
                 return HttpResponse("Login realizado com sucesso")
             else:
