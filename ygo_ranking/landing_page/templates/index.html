@@ -12,24 +12,19 @@
     {%if request.user.is_authenticated%}
     <div class="row">
 
-    <a href="{% url 'listar_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
-        <p class="text-card">Listar Torneios</p>
+    <a href="#" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
+        <p class="text-card">Editar minhas informações</p>
     </a>
 
-    <a href="{% url 'novo_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
-        <p class="text-card">Cadastrar Novo Torneio</p>
-    </a>
     
 </div>  
     <div class="row">
   
-      <a href="{% url 'listar_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
-          <p class="text-card">Listar Torneios</p>
+      <a href="{% url 'listar_torneio'%}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
+          <p class="text-card"> Ver torneios</p>
       </a>
   
-      <a href="{% url 'novo_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
-          <p class="text-card">Cadastrar Novo Torneio</p>
-      </a>
+     
   </div>
   {% endif%}
   {%if not request.user.is_authenticated%}

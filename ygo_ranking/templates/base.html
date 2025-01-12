@@ -22,6 +22,25 @@
             <i class='bx bx-menu' id="btn" ></i>
         </div>
         <ul class="nav-list">
+          
+          {% if not request.user.is_authenticated%}
+          <li>
+            <a href="{% url 'login' %}">
+              <i class='bx bx-log-in-circle'></i>
+              <span class="links_name">Login</span>
+            </a>
+            <span class="tooltip">Login</span>
+          </li>
+          {%endif%}
+          {% if request.user.is_authenticated%}
+          <li>
+            <a href="{% url 'logout' %}">
+              <i class='bx bx-log-out-circle'></i>
+              <span class="links_name">Logout</span>
+            </a>
+            <span class="tooltip">Logout</span>
+          </li>
+          {% endif %}
           <li>
             <a href="{% url 'landing_page' %}">
               <i class='bx bx-grid-alt'></i>
@@ -30,6 +49,7 @@
             <span class="tooltip">Página inicial</span>
           </li>
           <li>
+            {% if request.user.is_authenticated%}
           <a href="{% url 'duelists' %}">
             <i class='bx bx-user' ></i>
             <span class="links_name">Duelistas</span>
@@ -57,6 +77,7 @@
           </a>
           <span class="tooltip">Histórico</span>
         </li>
+        {%endif%}
         </ul>
       </div>
       
