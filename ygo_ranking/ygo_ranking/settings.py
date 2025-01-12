@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'duelists',
     'torneio',
     'usuarios',
+    'landing_page',
 ]
 
 MIDDLEWARE = [

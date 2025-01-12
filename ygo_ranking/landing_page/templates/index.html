@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'duelists/css/duelists.css' %}">
+    <link rel="stylesheet" href="{% static 'torneio/css/listar_torneio.css' %}">
+{% endblock %}
+
+{% block 'dashboard' %}
+
+<div class=container> 
+    {%if request.user.is_authenticated%}
+    <div class="row">
+
+    <a href="{% url 'listar_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
+        <p class="text-card">Listar Torneios</p>
+    </a>
+
+    <a href="{% url 'novo_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
+        <p class="text-card">Cadastrar Novo Torneio</p>
+    </a>
+    
+</div>  
+    <div class="row">
+  
+      <a href="{% url 'listar_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
+          <p class="text-card">Listar Torneios</p>
+      </a>
+  
+      <a href="{% url 'novo_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
+          <p class="text-card">Cadastrar Novo Torneio</p>
+      </a>
+  </div>
+  {% endif%}
+  {%if not request.user.is_authenticated%}
+  <br>  
+  <hr style="background-color:gray;">
+    <h1 align="center"> Para acessar os conteúdos do site, é necessário fazer login! <h1>
+        <hr style="background-color:gray;">
+  <div class="row">
+    
+    <a href="{% url 'login' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
+        <p class="text-card">Fazer Login</p>
+    </a>
+
+</div>
+  {% endif%}      
+  
+</div>
+
+{% endblock%}

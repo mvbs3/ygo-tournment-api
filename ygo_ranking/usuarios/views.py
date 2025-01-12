@@ -32,7 +32,7 @@ def login(request):
                 #funcao q so funciona quando usuarios esta autenticado: request.user.is_authenticated
                 #messages.success(request, 'Logado com sucesso')()
 
-                return HttpResponse("Login realizado com sucesso")
+                return redirect('landing_page')
             else:
                 return HttpResponse('<script>alert("Senha inválida");</script>')
 
@@ -47,6 +47,6 @@ def plataforma(request):
 def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
-        return redirect('login')
+        return redirect('landing_page')
     else:
-        return redirect('login')
+        return redirect('landing_page')

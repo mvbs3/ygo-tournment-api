@@ -20,6 +20,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('', include('landing_page.urls')),
     path('admin/', admin.site.urls),
     path('duelists/', include('duelists.urls')),
     path('torneio/', include('torneio.urls')),
