@@ -26,6 +26,10 @@
   
      
   </div>
+  {% if user.is_staff %}
+  <!-- elemento que só aparece para membros de equipe -->
+  So aparece para super user
+  {% endif %}
   {% endif%}
   {%if not request.user.is_authenticated%}
   <br>  
