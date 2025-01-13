@@ -6,10 +6,7 @@
 {% endblock %}
 
 {% block 'dashboard' %}
-<script src="{% static 'usuarios/js/usuarios.js' %}" defer></script>
-<script>
-  document.getElementById("nome").value = "{{ duelist.name }}";
-</script>
+
 <div class="container">
     <div class="row">
 
@@ -130,7 +127,10 @@
         
         <p>Nome Completo</p>
         <input id="nome" type="text" class="form-control" placeholder="{{duelist.name}}" value="">
+        <script >
+          document.getElementById("nome").value = "{{ duelist.name }}";
         
+        </script>
         <p>Apelido</p>
         <input id="nickname" type="text" class="form-control" placeholder="Apelido" value ="{{duelist.nickname}}">
         <p>E-mail</p>
@@ -140,13 +140,13 @@
         <p>Número de Telefone</p>
         <input id="contact_number" type="text" class="form-control" placeholder="(__)9____-____" value="{{duelist.contact_number}}">
         <br>
-        <input onclick="atualizar_duelist({{duelist.id}})"  type="submit" value="Salvar" class="btn btn-success" > 
+        <input onclick="atualizar_meu_duelist('{{duelist.id}}')"  type="submit" value="Salvar" class="btn btn-success" > 
         <hr style="background-color: gray;">
         
         <h3>Decks</h3>
         <div id = "decks">
           <br>
-        
+          <script src="{% static 'usuarios/js/usuarios.js' %}"></script>
         </div>
     </div>
       </div>

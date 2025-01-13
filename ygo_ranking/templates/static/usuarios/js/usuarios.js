@@ -9,6 +9,8 @@ function copyToClipboard(event, text) {
     document.body.removeChild(textarea);
   }
 
+var csrf_token = document.cookie.match(/csrftoken=([^;]*)/)[1];
+
 form_to_show = {"criar_duelista": 1, "atualizar_duelista": 2}
 function show_form(form_show){
     show_duelist = document.getElementById("show-duelist")
@@ -33,7 +35,8 @@ function show_form(form_show){
 
 }
 
-function atualizar_duelist(id){
+function atualizar_meu_duelist(id){
+    console.log("eu estou entrando na function")
     nome = document.getElementById("nome").value
     nickname = document.getElementById("nickname").value
     email = document.getElementById("email").value
@@ -61,6 +64,8 @@ function atualizar_duelist(id){
             cossyId = data['cossyId']
             contact_number = data['contact_number']
             alert("Duelista atualizado com sucesso")
+            window.location.href = '/usuarios/meu_perfil/';
+
         }
        console.log(data)
    })
