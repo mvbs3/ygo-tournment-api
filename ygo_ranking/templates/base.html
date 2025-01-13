@@ -24,24 +24,6 @@
         
         <ul class="nav-list">
           
-          {% if not request.user.is_authenticated%}
-          <li>
-            <a href="{% url 'login' %}">
-              <i class='bx bx-log-in-circle'></i>
-              <span class="links_name">Login</span>
-            </a>
-            <span class="tooltip">Login</span>
-          </li>
-          {%endif%}
-          {% if request.user.is_authenticated%}
-          <li>
-            <a href="{% url 'logout' %}">
-              <i class='bx bx-log-out-circle'></i>
-              <span class="links_name">Logout</span>
-            </a>
-            <span class="tooltip">Logout</span>
-          </li>
-          {% endif %}
           <li>
             <a href="{% url 'landing_page' %}">
               <i class='bx bx-grid-alt'></i>
@@ -84,7 +66,24 @@
       </div>
       
         {%endif%}
-        
+        {% if not request.user.is_authenticated%}
+        <li>
+          <a href="{% url 'login' %}">
+            <i class='bx bx-log-in-circle'></i>
+            <span class="links_name">Login</span>
+          </a>
+          <span class="tooltip">Login</span>
+        </li>
+        {%endif%}
+        {% if request.user.is_authenticated%}
+        <li>
+          <a href="{% url 'logout' %}">
+            <i class='bx bx-log-out-circle'></i>
+            <span class="links_name">Logout</span>
+          </a>
+          <span class="tooltip">Logout</span>
+        </li>
+        {% endif %}  
         </ul>
       </div>
       

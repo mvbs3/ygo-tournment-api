@@ -32,3 +32,38 @@ function show_form(form_show){
     
 
 }
+
+function atualizar_duelist(id){
+    nome = document.getElementById("nome").value
+    nickname = document.getElementById("nickname").value
+    email = document.getElementById("email").value
+    cossyId = document.getElementById("cossyId").value
+    contact_number = document.getElementById("contact_number").value
+   fetch('/duelists/atualizar_duelist/' + id,{
+       method:"POST",
+       headers: {
+           'X-CSRFToken': csrf_token,
+        },
+        body: JSON.stringify({
+            "name": nome,
+            "nickname": nickname,
+            "email": email,
+            "cossyId": cossyId,
+            "contact_number": contact_number
+        })
+   }).then(function(result){
+       return result.json()
+   }).then(function(data){
+        if(data['status'] == "200"){
+            nome = data['name'] 
+            nickname = data['nickname']
+            email = data['email']
+            cossyId = data['cossyId']
+            contact_number = data['contact_number']
+            alert("Duelista atualizado com sucesso")
+        }
+       console.log(data)
+   })
+}
+
+    
