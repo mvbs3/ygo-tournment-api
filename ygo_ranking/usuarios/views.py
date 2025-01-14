@@ -18,10 +18,14 @@ def cadastro(request):
         senha = request.POST.get('senha')
         user = User.objects.filter(username=username).first()
         if user:
-            return HttpResponse("Username ja cadastrado")
+            return HttpResponse('<script>alert("Username já cadastrado");window.location.href = "/usuarios/cadastro/";</script>')
+        user = User.objects.filter(email=email).first()
+        if user:
+            return HttpResponse('<script>alert("Email ja cadastrado");window.location.href = "/usuarios/cadastro/";</script>') 
         user = User.objects.create_user(username=username, email=email, password=senha)
         user.save()
-        return HttpResponse("Cadastro realizado com sucesso")
+        return HttpResponse('<script>alert("Cadastrado com sucesso");window.location.href = "/";</script>') 
+
     
 def login(request):
     if not request.user.is_authenticated:
@@ -38,7 +42,7 @@ def login(request):
 
                 return redirect('landing_page')
             else:
-                return HttpResponse('<script>alert("Senha inválida");</script>')
+                return HttpResponse('<script>alert("Senha inválida");window.location.href = "/usuarios/login/";</script>')
 
     else:
         return redirect('plataforma')
