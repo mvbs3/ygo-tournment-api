@@ -1,156 +1,148 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block 'head' %}
-    <link rel="stylesheet" href="{% static 'duelists/css/duelists.css' %}">
+<link rel="stylesheet" href="{% static 'duelists/css/duelists.css' %}">
 {% endblock %}
-
 {% block 'dashboard' %}
-
 <div class="container">
-    <div class="row">
-
-        <div onclick="show_form('1')" class="col-md card-dashboard">
-            <p class="text-card">Meu Perfil</p>
-        </div>
-
-        <div onclick="show_form('2')" class="col-md card-dashboard">
-            <p class="text-card">Atualizar Duelistas</p>
-        </div>
-
-    </div>
-    
-    <hr>
-    {% if not duelist == None %}
-    <div id="show-duelist" style= "border-width:5px" class="show-duelist border  rounded  p-4">
-        <h2> Informações de Duelista</h2>
-        <hr>
-        <div class="row">
-            <div class="col-4 border" style="border-width: 5px;">
-              <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Nome do Usuário</p>
-            </div>
-            <div class="col-8 border" style="border-width: 5px;">
-              <p style="text-align: center; vertical-align: middle;">{{ duelist.name }}</p>
-            </div>
-          </div>
-          <br>  
-          <div class="row">
-            <div class="col-4 border" style="border-width: 5px;">
-              <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Apelido</p>
-            </div>
-            <div class="col-8 border" style="border-width: 5px;">
-              <p style="text-align: center; vertical-align: middle;">{{ duelist.nickname }}</p>
-            </div>
-          </div>
-          <br>  
-          <div class="row">
-            <div class="col-4 border" style="border-width: 5px;">
-              <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Nome do Usuário</p>
-            </div>
-            <br>  
-            <div class="col-8 border" style="border-width: 5px;">
-              <p style="text-align: center; vertical-align: middle;">{{ duelist.email }}</p>
-            </div>
-          </div>
-          <br>  
-          <div class="row">
-            <div class="col-4 border" style="border-width: 5px;">
-              <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Nome do Usuário</p>
-            </div>
-            <div class="col-8 border" style="border-width: 5px;">
-              <p style="text-align: center; vertical-align: middle;">{{ duelist.cossyId }}</p>
-            </div>
-          </div>
-          <br>  
-          <div class="row">
-            <div class="col-4 border" style="border-width: 5px;">
-              <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Nome do Usuário</p>
-            </div>
-            <div class="col-8 border" style="border-width: 5px;">
-              <p style="text-align: center; vertical-align: middle;">{{ duelist.contact_number }}</p>
-            </div>
-          </div>
-                
-            </div>
-            <br>
-            <div id="show-deck" style= "border-width:5px" class="show-duelist border  rounded  p-4">
-                <h2> Meus Decks</h2>
-                <hr>
-                <div class="row">
-                    <div class="col-3 border" style="border-width: 5px;">
-                      <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Deck</p>
-                    </div>
-                    <div class="col-3 border" style="border-width: 5px;">
-                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Torneios Jogados</p>
-                      </div>
-                      <div class="col-3 border" style="border-width: 5px;">
-                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Torneios Vencidos</p>
-                      </div>
-
-                      <div class="col-3 border" style="border-width: 5px;">
-                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">YDKE code</p>
-                      </div>
-                      
-                   
-                  </div>
-                {% for deck in decks%}
-                <div class="row">
-                    <div class="col-3 border" style="border-width: 5px;">
-                      <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.deck}}</p>
-                    </div>
-                    <div class="col-3 border" style="border-width: 5px;">
-                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.tournament_played}}</p>
-                      </div>
-                      <div class="col-3 border" style="border-width: 5px;">
-                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.tournament_won  }}</p>
-                      </div>
-
-                      <div class="col-3 border" style="border-width: 5px;">
-                        <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">
-                            <a href="#" onclick="copyToClipboard(event, '{{deck.fields.ydkcode}}'), alert('Texto copiado para o clipboard!')">
-                                <i class='bx bxs-copy-alt'></i>
-                                <span class="links_name">Copiar para o Clipboard</span>
-                              </a>
-                        </p>
-                      </div>
-                      
-                  </div>
-                    
-                {% endfor%}
-                
-                        
-                    </div>
-            {%endif%}
-    <div id="att_duelist" class="att_duelist">
-     
-        <div >
-        
-        <p>Nome Completo</p>
-        <input id="nome" type="text" class="form-control" placeholder="{{duelist.name}}" value="">
-        <script >
-          document.getElementById("nome").value = "{{ duelist.name }}";
-        
-        </script>
-        <p>Apelido</p>
-        <input id="nickname" type="text" class="form-control" placeholder="Apelido" value ="{{duelist.nickname}}">
-        <p>E-mail</p>
-        <input id="email" type="email" class="form-control" placeholder="nome@email.com" value= "{{duelist.email}}">
-        <p>CossyId</p>
-        <input id="cossyId" type="text" class="form-control" placeholder="__________" value = "{{duelist.cossyId}}">
-        <p>Número de Telefone</p>
-        <input id="contact_number" type="text" class="form-control" placeholder="(__)9____-____" value="{{duelist.contact_number}}">
-        <br>
-        <input onclick="atualizar_meu_duelist('{{duelist.id}}')"  type="submit" value="Salvar" class="btn btn-success" > 
-        <hr style="background-color: gray;">
-        
-        <h3>Decks</h3>
-        <div id = "decks">
-          <br>
-          <script src="{% static 'usuarios/js/usuarios.js' %}"></script>
-        </div>
-    </div>
+   <div class="row">
+      <div onclick="show_form('1')" class="col-md card-dashboard">
+         <p class="text-card">Meu Perfil</p>
       </div>
+      <div onclick="show_form('2')" class="col-md card-dashboard">
+         <p class="text-card">Atualizar Duelistas</p>
+      </div>
+   </div>
+   <hr>
+   <div id="show-duelist" style= "border-width:5px" class="show-duelist border  rounded  p-4">
+
+    {% if duelist == None%}
+    <hr style="background-color:gray;">
+    <h1 align="center">
+    Você nao tem um usuario cadastrado! Cadastre suas informações <a  onclick ="show_form('2')" href="#"> teste </a>
+    <h1>
+    <hr style="background-color:gray;">
+    {% endif %}
+    
+   {% if not duelist == None %}
+      <h2> Informações de Duelista</h2>
+      <hr>
+      <div class="row">
+         <div class="col-4 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Nome do Usuário</p>
+         </div>
+         <div class="col-8 border" style="border-width: 5px;">
+            <p style="text-align: center; vertical-align: middle;">{{ duelist.name }}</p>
+         </div>
+      </div>
+      <br>  
+      <div class="row">
+         <div class="col-4 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Apelido</p>
+         </div>
+         <div class="col-8 border" style="border-width: 5px;">
+            <p style="text-align: center; vertical-align: middle;">{{ duelist.nickname }}</p>
+         </div>
+      </div>
+      <br>  
+      <div class="row">
+         <div class="col-4 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Nome do Usuário</p>
+         </div>
+         <br>  
+         <div class="col-8 border" style="border-width: 5px;">
+            <p style="text-align: center; vertical-align: middle;">{{ duelist.email }}</p>
+         </div>
+      </div>
+      <br>  
+      <div class="row">
+         <div class="col-4 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Nome do Usuário</p>
+         </div>
+         <div class="col-8 border" style="border-width: 5px;">
+            <p style="text-align: center; vertical-align: middle;">{{ duelist.cossyId }}</p>
+         </div>
+      </div>
+      <br>  
+      <div class="row">
+         <div class="col-4 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Nome do Usuário</p>
+         </div>
+         <div class="col-8 border" style="border-width: 5px;">
+            <p style="text-align: center; vertical-align: middle;">{{ duelist.contact_number }}</p>
+         </div>
+      </div>
+    {% endif %}
+    </div>
+
+   <br>
+   <div id="show-deck" style= "border-width:5px" class="show-duelist border  rounded  p-4">
+    {% if not duelist == None%}
+      <h2> Meus Decks</h2>
+      <hr>
+      <div class="row">
+         <div class="col-3 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Deck</p>
+         </div>
+         <div class="col-3 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Torneios Jogados</p>
+         </div>
+         <div class="col-3 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Torneios Vencidos</p>
+         </div>
+         <div class="col-3 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">YDKE code</p>
+         </div>
+      </div>
+      {% for deck in decks%}
+      <div class="row">
+         <div class="col-3 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.deck}}</p>
+         </div>
+         <div class="col-3 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.tournament_played}}</p>
+         </div>
+         <div class="col-3 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.tournament_won  }}</p>
+         </div>
+         <div class="col-3 border" style="border-width: 5px;">
+            <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">
+               <a href="#" onclick="copyToClipboard(event, '{{deck.fields.ydkcode}}'), alert('Texto copiado para o clipboard!')">
+               <i class='bx bxs-copy-alt'></i>
+               <span class="links_name">Copiar para o Clipboard</span>
+               </a>
+            </p>
+         </div>
+      </div>
+      {% endfor%}
+   
+   {%endif%}
+    </div>
+   <div id="att_duelist" class="att_duelist">
+      <div >
+         <p>Nome Completo</p>
+         <input id="nome" type="text" class="form-control" placeholder="{{duelist.name}}" value="">
+         <script >
+            document.getElementById("nome").value = "{{ duelist.name }}";
+            
+         </script>
+         <p>Apelido</p>
+         <input id="nickname" type="text" class="form-control" placeholder="Apelido" value ="{{duelist.nickname}}">
+         <p>E-mail</p>
+         <input id="email" type="email" class="form-control" placeholder="nome@email.com" value= "{{duelist.email}}">
+         <p>CossyId</p>
+         <input id="cossyId" type="text" class="form-control" placeholder="__________" value = "{{duelist.cossyId}}">
+         <p>Número de Telefone</p>
+         <input id="contact_number" type="text" class="form-control" placeholder="(__)9____-____" value="{{duelist.contact_number}}">
+         <br>
+         <input onclick="atualizar_meu_duelist('{{duelist.id}}')"  type="submit" value="Salvar" class="btn btn-success" > 
+         <hr style="background-color: gray;">
+         <h3>Decks</h3>
+         <div id = "decks">
+            <br>
+            <script src="{% static 'usuarios/js/usuarios.js' %}"></script>
+         </div>
+      </div>
+   </div>
 </div>
-
-
 {% endblock %}

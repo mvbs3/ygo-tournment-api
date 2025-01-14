@@ -64,14 +64,12 @@ def meu_perfil(request):
         user = request.user
         email = user.email
         duelist = Duelist.objects.filter(email=email)
-        decks =  Deck.objects.filter(owner=duelist[0])
-        decks_Json = json.loads(serializers.serialize("json", decks))
-        decks_Json = [{'id':deck['pk'], 'fields':deck['fields']} for deck in decks_Json]
-  
-
         if duelist.exists():
+            decks =  Deck.objects.filter(owner=duelist[0])
+            decks_Json = json.loads(serializers.serialize("json", decks))
+            decks_Json = [{'id':deck['pk'], 'fields':deck['fields']} for deck in decks_Json]
             duelist = duelist.first()
             return render(request, 'meu_perfil.html', {'duelist': duelist, 'decks': decks_Json,})
         else:
-            return render(request, 'meu_perfil.html' , {'duelist': None})
+            return render(request, 'meu_perfil.html' , {'duelist': None, 'decks': [], 'email': user.email})
         
