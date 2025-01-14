@@ -66,6 +66,8 @@ function atualizar_meu_duelist(id){
             alert("Duelista atualizado com sucesso")
             window.location.href = '/usuarios/meu_perfil/';
 
+        }else{
+            return alert("Error "+ data['status'] + " - " + data['error'])
         }
        console.log(data)
    })

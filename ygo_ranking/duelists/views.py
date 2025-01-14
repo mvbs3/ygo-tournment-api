@@ -104,15 +104,17 @@ def atualizar_duelist(request,id):
         duelist.email = email
         list_users = Duelist.objects.exclude(id=id).filter(email=email)
         if list_users.exists():
-            return HttpResponse("Ja existe um usuario com esse email")
+            return JsonResponse({'status': '500','error': 'Ja existe um usuario com esse e-mail'})
         duelist.cossyId = cossyId
         list_users = Duelist.objects.exclude(id=id).filter(cossyId=cossyId)
         if list_users.exists():
-            return HttpResponse("Ja existe um usuario com esse cossyId")
+            return JsonResponse({'status': '500','error': 'Ja existe um usuario com esse CossyId'})
         duelist.contact_number = contact_number
         list_users = Duelist.objects.exclude(id=id).filter(contact_number=contact_number)   
         if list_users.exists():
-            return HttpResponse("Ja existe um usuario com esse telefone")
+            return JsonResponse({'status': '500','error': 'Ja existe um usuario com esse telefone'})
+        
+        
         duelist.save()
 
 
