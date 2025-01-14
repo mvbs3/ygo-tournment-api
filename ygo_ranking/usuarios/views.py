@@ -71,5 +71,7 @@ def meu_perfil(request):
             duelist = duelist.first()
             return render(request, 'meu_perfil.html', {'duelist': duelist, 'decks': decks_Json,})
         else:
-            return render(request, 'meu_perfil.html' , {'duelist': None, 'decks': [], 'email': user.email})
+            duelist = Duelist(name= "",  email=email)
+            duelist.save()
+            return render(request, 'meu_perfil.html' , {'duelist': duelist, 'decks': []})
         
