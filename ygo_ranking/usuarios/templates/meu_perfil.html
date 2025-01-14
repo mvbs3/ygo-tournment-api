@@ -132,6 +132,37 @@
          <hr style="background-color: gray;">
          <h3>Decks</h3>
          <div id = "decks">
+          <div class="row">
+            <div class="col-3 border" style="border-width: 5px;">
+               <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Deck</p>
+            </div>
+            <div class="col-3 border" style="border-width: 5px;">
+               <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Torneios Jogados</p>
+            </div>
+            <div class="col-3 border" style="border-width: 5px;">
+               <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">Torneios Vencidos</p>
+            </div>
+            <div class="col-3 border" style="border-width: 5px;">
+               <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">YDKE code</p>
+            </div>
+         </div>
+          {% for deck in decks%}
+          <div class="row">
+             <div class="col-3 border" style="border-width: 5px;">
+              <input id="deck" type="text" class="form-control" placeholder="Nome Deck" value ="{{deck.fields.deck}}">
+             </div>
+             <div class="col-3 border" style="border-width: 5px;">
+                <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.tournament_played}}</p>
+             </div>
+             <div class="col-3 border" style="border-width: 5px;">
+                <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.tournament_won  }}</p>
+             </div>
+             <div class="col-3 border" style="border-width: 5px;">
+              <input id="ydkcode" type="text" class="form-control" placeholder="YDKE code" value ="{{deck.fields.ydkcode}}">
+               
+             </div>
+          </div>
+          {% endfor%}
             <br>
             <script src="{% static 'usuarios/js/usuarios.js' %}"></script>
          </div>
