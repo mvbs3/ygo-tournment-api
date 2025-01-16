@@ -66,6 +66,7 @@ def update_duelist(request):
         'duelist_id': duelist_id}
     return JsonResponse (data)
 
+
 @csrf_exempt
 def update_deck(request, id):
     deck = Deck.objects.get(id=id)
@@ -81,7 +82,17 @@ def update_deck(request, id):
     deck.save()
     return JsonResponse({'status': '200','deck': deck.deck, 'ydkcode': deck.ydkcode, 'year': deck.year})
 
-
+def add_deck(request):
+    body = json.loads(request.body)
+    deck = Deck.objects.create(
+        deck = body['deck'],
+        ydkcode = body['ydkcode'],
+        year = body['year'],
+        owner = Duelist.objects.get(id=body['duelist'])
+    )
+    deck.save()
+    
+    return JsonResponse({'status': '200','deck':deck.deck, 'ydkcode': deck.ydkcode, 'year': deck.year,'id': deck.id})
 def delete_deck(request, id):
     try:
         deck = Deck.objects.get(id=id)

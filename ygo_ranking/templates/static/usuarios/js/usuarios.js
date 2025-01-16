@@ -97,44 +97,28 @@ function atualizar_meu_duelist(id){
    })
 }
 
-function add_deck(){
-   container = document.getElementById("decks") 
-   html =`<div class="row">
-    <div class="col-3 border" style="border-width: 5px;">
-     <input id="deck" type="text"  name='deck' class="form-control" placeholder="Nome Deck" value ="{{deck.fields.deck}}">
-    </div>
-    <!--
-    <div class="col-3 border" style="border-width: 5px;">
-       <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.tournament_played}}</p>
-    </div>data['decks'][i]['id'] +"'
-    <div class="col-3 border" style="border-width: 5px;">
-       <p style="font-weight: bold; margin-right: 20px; vertical-align: middle;">{{deck.fields.tournament_won  }}</p>
-    </div>
+function add_deck(id){
+    container = document.getElementById("decks") 
+    template_deck={"deck": "No_Name", "ydkcode": "No_Ydkcode", "year":2025}
+   fetch('/duelists/add_deck/',{
+       method:"POST",
+       headers: {
+           'X-CSRFToken': csrf_token,
+       },
+       body: JSON.stringify({
+           "deck": template_deck['deck'],
+           "ydkcode": template_deck['ydkcode'],
+           "year": template_deck['year'],
+           "duelist": id
+       })
+       
+   }).then(function(result){
+       return result.json()
+   }).then(function(data){
+        if(data['status'] == "200"){
+        alert("Deck adicionado com sucesso")
+        window.location.href = '/usuarios/meu_perfil/';
+        }    
+   })
    
-   -->
-    <div class="col-3 border" style="border-width: 5px;">
-     <input id="ydkcode" type="text" name='ydkcode' class="form-control" placeholder="YDKE code" value ="{{deck.fields.ydkcode}}">
-      
-    </div>
-    <div class="col-3" style="display: none;">
-     <input id="year" name='year' type="hidden" class="form-control" placeholder="YDKE code" value ="">
-     <script>
-       const dataAtual = new Date();
-       const input = document.getElementById('year');
-       input.value = dataAtual.getFullYear();
-     </script>
-   </div>
-
-   <div class='col-md'>
-     <input onclick="atualizar_deck('{{deck.id}}')" class='btn btn-lg btn-success' type='submit' value='ATUALIZAR'>
- </div>
-
-
- <div class='col-md'>
-       <a href='/duelists/delete_deck/{{deck.id}}' class='btn btn-lg btn-danger'>EXCLUIR DECK</a>
-</div>
- </div>
- <br>
-  ` 
- container.innerHTML += html
 }
