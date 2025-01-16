@@ -35,6 +35,33 @@ function show_form(form_show){
 
 }
 
+
+function atualizar_deck(id){
+    deck = document.getElementById("deck").value
+    ydkcode = document.getElementById("ydkcode").value
+    year = document.getElementById("year").value
+   fetch('/duelists/update_deck/' + id,{
+       method:"POST",
+       headers: {
+           'X-CSRFToken': csrf_token,
+        },
+        body: JSON.stringify({
+            "deck": deck,
+            "ydkcode": ydkcode,
+            "year": year
+        })
+   }).then(function(result){
+       return result.json()
+   }).then(function(data){
+        if(data['status'] == "200"){
+            alert("Deck atualizado com sucesso")
+        }else{
+            return alert("Error "+ data['status'] + " - " + data['error'])
+        }
+       console.log(data)
+   })
+}
+
 function atualizar_meu_duelist(id){
     console.log("eu estou entrando na function")
     nome = document.getElementById("nome").value

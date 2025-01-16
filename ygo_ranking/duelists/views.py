@@ -75,9 +75,10 @@ def update_deck(request, id):
     deck.year = request.POST.get('year')
     list_decks = Deck.objects.exclude(id=id).filter(ydkcode=deck.ydkcode)
     if list_decks.exists():
-        return HttpResponse("Ja existe um deck com esse ydkcode")
+        return JsonResponse({'status': '500','error': 'Ja existe um deck com esse ydkecode'})
     deck.save()
-    return HttpResponse("Deck atualizado com sucesso")
+    return JsonResponse({'status': '200','deck': deck.deck, 'ydkcode': deck.ydkcode, 'year': deck.year})
+
 
 def delete_deck(request, id):
     try:
