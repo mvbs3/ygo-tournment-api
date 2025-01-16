@@ -130,7 +130,13 @@
          <br>
          <input onclick="atualizar_meu_duelist('{{duelist.id}}')"  type="submit" value="Salvar" class="btn btn-success" > 
          <hr style="background-color: gray;">
-         <h3>Decks</h3>
+         <div class="row">
+          <h3>Decks</h3> 
+          <br>
+          <span class="btn-add-decks" onclick="add_deck()">+ Adicionar um deck</span>
+
+          <div>
+         
          <div id = "decks">
           <div class="row">
             <div class="col-3 border" style="border-width: 5px;">
@@ -188,7 +194,7 @@
           <br>
           
           {% endfor%}
-            <br>
+            
             <script src="{% static 'usuarios/js/usuarios.js' %}"></script>
          </div>
       </div>
