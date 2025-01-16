@@ -150,7 +150,7 @@
             </div>
          </div>
           {% for deck in decks%}
-          <div class="row">
+            <div class="row">
              <div class="col-3 border" style="border-width: 5px;">
               <input id="deck" type="text"  name='deck' class="form-control" placeholder="Nome Deck" value ="{{deck.fields.deck}}">
              </div>
@@ -177,9 +177,9 @@
             </div>
 
             <div class='col-md'>
-              <input onclick="atualizar_deck({{deck.id}})" value="ATUALIZAR" type="submit" value="Salvar" class="btn btn-lg btn-success" > 
-            </div>
-        
+              <input onclick="atualizar_deck('{{deck.id}}')" class='btn btn-lg btn-success' type='submit' value='ATUALIZAR'>
+          </div>
+
   
           <div class='col-md'>
                 <a href='/duelists/delete_deck/{{deck.id}}' class='btn btn-lg btn-danger'>EXCLUIR DECK</a>

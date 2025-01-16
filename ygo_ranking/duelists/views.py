@@ -69,7 +69,9 @@ def update_duelist(request):
 @csrf_exempt
 def update_deck(request, id):
     deck = Deck.objects.get(id=id)
+    
     deck.deck = request.POST.get('deck')
+    print(deck.deck)
     deck.ydkcode = request.POST.get('ydkcode')
 
     deck.year = request.POST.get('year')

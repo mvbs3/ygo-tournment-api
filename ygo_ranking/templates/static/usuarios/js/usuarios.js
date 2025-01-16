@@ -35,7 +35,8 @@ function show_form(form_show){
 
 }
 
-
+// a funcao está preparada para receber no fomrato form e nao por json, por isso essa funcao ta esquisita
+// mas eu queria utilizar o alert e treinar js. 
 function atualizar_deck(id){
     deck = document.getElementById("deck").value
     ydkcode = document.getElementById("ydkcode").value
@@ -43,20 +44,16 @@ function atualizar_deck(id){
    fetch('/duelists/update_deck/' + id,{
        method:"POST",
        headers: {
-           'X-CSRFToken': csrf_token,
-        },
-        body: JSON.stringify({
-            "deck": deck,
-            "ydkcode": ydkcode,
-            "year": year
-        })
+           'Content-Type': 'application/x-www-form-urlencoded'
+       },
+       body: `deck=${deck}&ydkcode=${ydkcode}&year=${year}`
    }).then(function(result){
        return result.json()
    }).then(function(data){
         if(data['status'] == "200"){
             alert("Deck atualizado com sucesso")
         }else{
-            return alert("Error "+ data['status'] + " - " + data['error'])
+            return alert("Error " + data['error'])
         }
        console.log(data)
    })
