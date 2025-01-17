@@ -80,7 +80,8 @@ def update_deck(request, id):
     if list_decks.exists():
         return JsonResponse({'status': '500','error': 'Ja existe um deck com esse ydkecode'})
     deck.save()
-    return JsonResponse({'status': '200','deck': deck.deck, 'ydkcode': deck.ydkcode, 'year': deck.year})
+    return redirect('meu_perfil')
+    #return JsonResponse({'status': '200','deck': deck.deck, 'ydkcode': deck.ydkcode, 'year': deck.year})
 
 def add_deck(request):
     body = json.loads(request.body)
@@ -97,7 +98,7 @@ def delete_deck(request, id):
     try:
         deck = Deck.objects.get(id=id)
         deck.delete()
-        return redirect(reverse('duelists')+f'?aba=att_duelist&id_duelist={deck.owner.id}')
+        return redirect('meu_perfil')
     except:
         return redirect(reverse('duelists')+f'?aba=att_duelist&id_duelist={deck.owner.id}')
 
