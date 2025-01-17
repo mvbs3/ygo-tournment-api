@@ -13,10 +13,11 @@
     <a href="{% url 'listar_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
         <p class="text-card">Listar Torneios</p>
     </a>
-
+{%if user.is_staff%}
     <a href="{% url 'novo_torneio' %}" style="text-decoration: none; color: inherit;" class="col-md card-dashboard">
         <p class="text-card">Cadastrar Novo Torneio</p>
     </a>
+    {%endif%}
 </div>  
 </div>
 <br>

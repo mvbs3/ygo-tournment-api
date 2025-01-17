@@ -40,8 +40,10 @@
             </a>
             <span class="tooltip">Página inicial</span>
           </li>
+          {% if request.user.is_authenticated%}
+          {%  if request.user.is_staff%}
           <li>
-            {% if request.user.is_authenticated%}
+           
           <a href="{% url 'duelists' %}">
             <i class='bx bx-user' ></i>
             <span class="links_name">Duelistas</span>
@@ -50,8 +52,8 @@
         </li>
         <li>
           <a href="{% url 'listar_torneio' %}">
-            <i class='bx bx-chat' ></i>
-            <span class="links_name">Torneios</span>
+            <i class='bx bx-trophy'></i>
+          <span class="links_name">Torneios</span>
           </a>
           <span class="tooltip">Torneios</span>
         </li>
@@ -69,7 +71,25 @@
           </a>
           <span class="tooltip">Histórico</span>
         </li>
+{% endif%}
+{%if not request.user.is_staff%}
+<li>
+           
+  <a href="{% url 'meu_perfil' %}">
+    <i class='bx bx-user' ></i>
+    <span class="links_name">Meu Perfil</span>
+  </a>
+  <span class="tooltip">Meu Perfil</span>
+</li>
+<li>
+  <a href="{% url 'listar_torneio' %}">
+    <i class='bx bx-trophy'></i>
+    <span class="links_name">Torneios</span>
+  </a>
+  <span class="tooltip">Torneios</span>
+</li>
 
+{%endif%}
       <li>
         <a href="{% url 'logout' %}">
           <i class='bx bx-log-out-circle'></i>

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block 'dashboard' %}
-
+{%if request.user.is_staff%}
 <div class="container">
     <div class="row">
 
@@ -24,5 +24,9 @@
     </form>
     
 </div>
-
+{% endif %}
+{% if not request.user.is_staff%}
+<br>
+<h3> Página restrita à admnistradores do dominio </h3>
+{%endif%}
 {% endblock %}
