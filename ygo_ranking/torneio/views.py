@@ -66,3 +66,11 @@ def inscrever_jogador(request,identificador):
         return HttpResponse("Jogador ja inscrito")
     torneio.duelists.add(duelist)
     return HttpResponse("Jogador inscrito com sucesso")
+def des_inscrever_jogador(request,identificador):
+    torneio = get_object_or_404(Torneio, identificador=identificador)
+    duelist = Duelist.objects.get(email=request.user.email)
+    if duelist in torneio.duelists.all():
+        torneio.duelists.remove(duelist)
+        return HttpResponse("Jogador removido com sucesso")
+   
+    return HttpResponse("Jogador nao inscrito")

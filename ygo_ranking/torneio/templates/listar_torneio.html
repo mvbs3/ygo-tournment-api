@@ -30,6 +30,8 @@
                 <th scope="col">Identificador</th>  
                 <th scope="col">Nome</th>
                 <th scope="col">Loja</th>
+                <th scope="col">Data do Torneio</th>
+                <th scope="col">Horário do Torneio</th>
                 <th scope="col">Status</th>
                 <th scope="col">Numero de Players</th>
                 <th scope="col">Numero de Rodadas Atual</th>
@@ -39,20 +41,26 @@
             <tbody>
                 {% for torneio in torneios_inscritos %}
                 <tr>
-                    <th><a href="{% url 'acessar_torneio' torneio.torneio.identificador%}">{{torneio.torneio.identificador}}</a></th>
+                    <th><a href="{% url 'acessar_torneio' torneio.torneio.identificador%}">Checar inscritos</a></th>
                     <td>{{torneio.torneio.name}}</td>
                     <td>{{torneio.torneio.loja}}</td>
+                    <td>{{torneio.torneio.definir_fim_torneio}}</td>
+                    <td>{{torneio.torneio.horario_inicio}}</td>
                     <td>
-                        {% if torneio.torneio.finalizado or torneio.inscrito%}
-                        <span class="badge badge-danger">Danger</span>
+                        {% if torneio.torneio.finalizado %}
+                        <span class="badge badge-danger">Inscrição Finalizada</span>
+                        {%elif torneio.inscrito%}
+                        <span class="badge badge-success">Inscrito</span>
                         {%else%}
-                        <span class="badge badge-success">Inscrição Aberta</span>
+                        <span class="badge badge-warning">Não inscrito</span>
                         {%endif%}                        </td>
                         <td> {{torneio.torneio.duelists.all.count}}</td>
                         <td> {{torneio.torneio.definir_num_rodadas}}</td>
-                        {% if torneio.torneio.finalizado or torneio.inscrito%}
+                        {% if torneio.torneio.finalizado %}
                         
                           <td><p class="btn btn-danger">Não possivel Se inscrever</p></td>
+                        {%elif torneio.inscrito%}
+                        <td><a href="{% url 'des_inscrever_jogador' torneio.torneio.identificador %}" class="btn btn-warning">Des-inscrever</a></td>
                         {%else%}
                           <td><a href="{% url 'inscrever_jogador' torneio.torneio.identificador %}" class="btn btn-success">Inscrever-se</a></td>
                         {%endif%}

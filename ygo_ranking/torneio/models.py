@@ -16,7 +16,7 @@ class Torneio(models.Model):
     loja = models.CharField(max_length=100)
     categoria = models.ForeignKey(CategoriaTorneio, on_delete=models.CASCADE)
     duelists = models.ManyToManyField(Duelist, null=True, blank=True)
-
+    horario_inicio = models.TimeField(null=True)
     data_inicio = models.DateField(null=True)
     data_fim = models.DateField(null=True)
     finalizado = models.BooleanField(default=False)
@@ -50,9 +50,13 @@ class Torneio(models.Model):
         self.num_rodadas = num_rodadas
         self.save()
         return num_rodadas
-    def user_inscrito(self):
-        duelist = Duelist.objects.get(email=self.request.user.email)
-        return self.duelists.filter(id=duelist.id).exists()        
+    def definir_fim_torneio(self):
+        if self.data_fim == datetime.now().date() and self.horario_inicio <= datetime.now().time():
+            self.finalizado = True
+        if self.data_fim < datetime.now().date():
+            self.finalizado = True
+            self.save()
+        return self.data_fim   
 
 class Match(models.Model):
     tournament = models.ForeignKey(Torneio, on_delete=models.CASCADE)  # Relaciona com o torneio
