@@ -4,6 +4,9 @@ from django.http import HttpResponse, FileResponse
 from .models import Torneio 
 from fpdf import FPDF
 from io import BytesIO
+from duelists.models import Duelist
+from django.http import JsonResponse
+
 # Create your views here.
 def novo_torneio(request):
     if request.method == "GET":
@@ -20,10 +23,20 @@ def novo_torneio(request):
 def listar_torneio(request):
     if request.method == "GET":
         torneios = Torneio.objects.all()
-        return render(request, 'listar_torneio.html', {"torneios" : torneios})
+        user = request.user
+        torneios_inscritos = []
+
+        for torneio in torneios:
+            duelist = Duelist.objects.get(email=user.email)
+            inscrito = torneio.duelists.filter(id=duelist.id).exists()
+            torneios_inscritos.append({'torneio': torneio, 'inscrito': inscrito})
+
+        return render(request, 'listar_torneio.html', {'torneios_inscritos': torneios_inscritos})
 def acessar_torneio(request,identificador):
     torneio = get_object_or_404(Torneio, identificador=identificador)
-    return render(request, 'acessar_torneio.html', {"torneio" : torneio})
+    duelist = Duelist.objects.get(email=request.user.email)
+    inscrito = torneio.duelists.filter(id=duelist.id).exists() 
+    return render(request, 'acessar_torneio.html', {"torneio" : torneio, 'inscrito' : inscrito})
 
 def gerar_os(request,identificador):
     torneio = get_object_or_404(Torneio, identificador=identificador)
@@ -45,3 +58,11 @@ def gerar_os(request,identificador):
     #pdf.output(identificador+".pdf")
     #para fazer download direto usar parametro as_attachment=True
     return FileResponse(pdf_bytes, as_attachment=True,filename=f'{identificador}.pdf')
+
+def inscrever_jogador(request,identificador):
+    torneio = get_object_or_404(Torneio, identificador=identificador)
+    duelist = Duelist.objects.get(email=request.user.email)
+    if duelist in torneio.duelists.all():
+        return HttpResponse("Jogador ja inscrito")
+    torneio.duelists.add(duelist)
+    return HttpResponse("Jogador inscrito com sucesso")

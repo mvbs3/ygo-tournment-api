@@ -33,23 +33,29 @@
                 <th scope="col">Status</th>
                 <th scope="col">Numero de Players</th>
                 <th scope="col">Numero de Rodadas Atual</th>
+                <th scope="col">Inscrever-se</th>
               </tr>
             </thead>
             <tbody>
-                {% for torneio in torneios %}
+                {% for torneio in torneios_inscritos %}
                 <tr>
-                    <th><a href="{% url 'acessar_torneio' torneio.identificador%}">{{torneio.identificador}}</a></th>
-                    <td>{{torneio.name}}</td>
-                    <td>{{torneio.loja}}</td>
+                    <th><a href="{% url 'acessar_torneio' torneio.torneio.identificador%}">{{torneio.torneio.identificador}}</a></th>
+                    <td>{{torneio.torneio.name}}</td>
+                    <td>{{torneio.torneio.loja}}</td>
                     <td>
-                        {% if torneio.finalizado %}
+                        {% if torneio.torneio.finalizado or torneio.inscrito%}
                         <span class="badge badge-danger">Danger</span>
                         {%else%}
                         <span class="badge badge-success">Inscrição Aberta</span>
                         {%endif%}                        </td>
-                        <td> {{torneio.duelists.all.count}}</td>
-                        <td> {{torneio.definir_num_rodadas}}</td>
-                    
+                        <td> {{torneio.torneio.duelists.all.count}}</td>
+                        <td> {{torneio.torneio.definir_num_rodadas}}</td>
+                        {% if torneio.torneio.finalizado or torneio.inscrito%}
+                        
+                          <td><p class="btn btn-danger">Não possivel Se inscrever</p></td>
+                        {%else%}
+                          <td><a href="{% url 'inscrever_jogador' torneio.torneio.identificador %}" class="btn btn-success">Inscrever-se</a></td>
+                        {%endif%}
                   </tr>
                   
                 {% endfor %}

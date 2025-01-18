@@ -3,6 +3,7 @@ from .choices import ChoicesCategoriaTorneio
 from duelists.models import Duelist
 from datetime import datetime
 from secrets import token_hex, token_urlsafe
+from django.contrib.auth.models import User
 import math
 # Create your models here.
 class CategoriaTorneio(models.Model):
@@ -49,7 +50,9 @@ class Torneio(models.Model):
         self.num_rodadas = num_rodadas
         self.save()
         return num_rodadas
-        
+    def user_inscrito(self):
+        duelist = Duelist.objects.get(email=self.request.user.email)
+        return self.duelists.filter(id=duelist.id).exists()        
 
 class Match(models.Model):
     tournament = models.ForeignKey(Torneio, on_delete=models.CASCADE)  # Relaciona com o torneio
