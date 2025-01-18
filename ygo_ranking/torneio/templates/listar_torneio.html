@@ -27,7 +27,7 @@
         <table class="table table-dark">
             <thead>
               <tr>
-                <th scope="col">Identificador</th>  
+                <th scope="col">Informações do torneio</th>  
                 <th scope="col">Nome</th>
                 <th scope="col">Loja</th>
                 <th scope="col">Data do Torneio</th>
@@ -41,7 +41,7 @@
             <tbody>
                 {% for torneio in torneios_inscritos %}
                 <tr>
-                    <th><a href="{% url 'acessar_torneio' torneio.torneio.identificador%}">Checar inscritos</a></th>
+                    <th><a href="{% url 'acessar_torneio' torneio.torneio.identificador%}"><i class='bx bxs-info-circle'></i>Clique Aqui</a></th>
                     <td>{{torneio.torneio.name}}</td>
                     <td>{{torneio.torneio.loja}}</td>
                     <td>{{torneio.torneio.definir_fim_torneio}}</td>

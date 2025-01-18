@@ -17,7 +17,7 @@ def novo_torneio(request):
             meu_form = FormTorneio(request.POST)
             if meu_form.is_valid():
                 meu_form.save()
-                return HttpResponse("Torneio criado com sucesso")
+                return  HttpResponse('<script>alert("Torneio criado");window.location.href = "/torneio/listar_torneio/";</script>')
             else:
                 return render(request, 'novo_torneio.html', {'form':meu_form})
 def listar_torneio(request):
@@ -34,9 +34,7 @@ def listar_torneio(request):
         return render(request, 'listar_torneio.html', {'torneios_inscritos': torneios_inscritos})
 def acessar_torneio(request,identificador):
     torneio = get_object_or_404(Torneio, identificador=identificador)
-    duelist = Duelist.objects.get(email=request.user.email)
-    inscrito = torneio.duelists.filter(id=duelist.id).exists() 
-    return render(request, 'acessar_torneio.html', {"torneio" : torneio, 'inscrito' : inscrito})
+    return render(request, 'acessar_torneio.html', {"torneio" : torneio})
 
 def gerar_os(request,identificador):
     torneio = get_object_or_404(Torneio, identificador=identificador)
@@ -63,14 +61,14 @@ def inscrever_jogador(request,identificador):
     torneio = get_object_or_404(Torneio, identificador=identificador)
     duelist = Duelist.objects.get(email=request.user.email)
     if duelist in torneio.duelists.all():
-        return HttpResponse("Jogador ja inscrito")
+        return HttpResponse('<script>alert("Jogador ja inscrito");window.location.href = "/torneio/listar_torneio/";</script>')
     torneio.duelists.add(duelist)
-    return HttpResponse("Jogador inscrito com sucesso")
+    return HttpResponse('<script>alert("Jogador inscrito");window.location.href = "/torneio/listar_torneio/";</script>')
 def des_inscrever_jogador(request,identificador):
     torneio = get_object_or_404(Torneio, identificador=identificador)
     duelist = Duelist.objects.get(email=request.user.email)
     if duelist in torneio.duelists.all():
         torneio.duelists.remove(duelist)
-        return HttpResponse("Jogador removido com sucesso")
+        return HttpResponse('<script>alert("Jogador desinscrito");window.location.href = "/torneio/listar_torneio/";</script>')
    
-    return HttpResponse("Jogador nao inscrito")
+    return HttpResponse('<script>alert("Jogador nao inscrito");window.location.href = "/torneio/listar_torneio/";</script>')
