@@ -27,6 +27,8 @@
       <h3>{{torneio.name}} 
         <a href= "{% url 'gerar_os' torneio.identificador %}">GERAR PDF</a>
         <h3> 
+            <p>{{torneio.loja}} - {{torneio.data_fim}} - {{torneio.horario_inicio}} </p>
+            <p> Num. Rodadas: {{torneio.definir_num_rodadas}} - Num. Players: {{torneio.duelists.all.count}} </p>
         
   </div>
   <div class="container-fluid distanciamento">
