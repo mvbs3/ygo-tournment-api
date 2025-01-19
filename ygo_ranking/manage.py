@@ -3,7 +3,6 @@
 import os
 import sys
 
-
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ygo_ranking.settings')
@@ -15,6 +14,24 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+    # Criação automatizada de superusuário
+    if os.environ.get("CREATE_SUPERUSER") == "true":
+        import django
+        django.setup()
+        from django.contrib.auth import get_user_model
+
+        User = get_user_model()
+        if not User.objects.filter(username="admin").exists():
+            User.objects.create_superuser(
+                username="admin",
+                email="admin@example.com",
+                password="admin1234"
+            )
+            print("Superuser created successfully.")
+        else:
+            print("Superuser already exists.")
+
     execute_from_command_line(sys.argv)
 
 
